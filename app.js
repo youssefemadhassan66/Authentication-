@@ -1,4 +1,5 @@
 //jshint esversion:6
+require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -25,9 +26,10 @@ const userSchema = new mongooose.Schema({
     }
 })
 
-var secret = "don't tell any one about our secret";
 
-userSchema.plugin(encrypt, { secret: secret ,encryptedFields: ['password']});
+console.log(process.env.SECRET);
+
+userSchema.plugin(encrypt, { secret: process.env.SECRET ,encryptedFields: ['password']});
 
 const User = mongooose.model("User",userSchema);
 
